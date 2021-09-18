@@ -1,0 +1,14 @@
+def solution(s):
+    arr=list(s)
+    num=0
+    for i in range(0,len(s)):
+        arr[i]=arr[i].lower()
+        if num%2==0:
+            arr[i]=arr[i].upper()
+        if arr[i]==' ':
+            num=0
+        else:
+            num+=1
+    
+    answer=''.join(arr)
+    return answer
