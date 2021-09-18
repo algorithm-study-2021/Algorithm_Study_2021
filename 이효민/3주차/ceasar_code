@@ -1,0 +1,27 @@
+def solution(s, n):
+    answer = ''
+
+    arr=list(s)
+    for i in range(0,len(s)):
+        arr[i]=ord(arr[i])
+        if arr[i]==32:
+            arr[i]=chr(arr[i])
+            continue
+        if arr[i]>=65 and arr[i]<=90:
+            arr[i]+=n
+            if arr[i]>90:
+                arr[i]-=26
+        elif arr[i]>=97 and arr[i]<=122:
+            arr[i]+=n
+            if arr[i]>122:
+                arr[i]-=26
+        arr[i]=chr(arr[i])
+    answer=''.join(arr)
+        
+    return answer
+
+#a의 아스키코드 97
+#A의 아스키코드 65
+#z의 아스키코드 122
+#Z의 아스키코드 90
+#공백의 아스키코드 32
