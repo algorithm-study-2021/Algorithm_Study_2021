@@ -1,0 +1,21 @@
+#########################
+def solution(n):
+    answer = 0
+    arr=[True]*(n+1)
+    
+    num=int(n**0.5)
+    for i in range(2,num+1):
+        if arr[i]==True:
+            for j in range(i+i,n+1,i):
+                arr[j]=False
+    for k in range(2,n+1):
+        if arr[k]==True:
+            answer+=1
+    
+    return answer
+
+
+#소수 판별 함수: 실패
+#=> 숫자가 커지면 런타임이 너무 커짐
+
+#에라토스테네스의 체
