@@ -1,0 +1,13 @@
+def solution(a, b):
+    
+    day = ['FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU']
+    # 시작이 금요일이라서 금요일부터 적어줌
+    day = day * 52
+    # 1년은 52주로 이루어져있어서 그만큼 곱해줌
+    days_of_months = [0,31,29,31,30,31,30,31,31,30,31,30,31]
+    
+    answer = day[sum(days_of_months[:a]) + b - 1]
+    # 리스트 처음부터 해당 월(a)까지 일수를 냅다 다 더해서 day의 값을 구하면 됨
+    return answer
+
+print(solution(5, 24))
