@@ -1,8 +1,8 @@
 def solution(a, b):
     day=0
-    callendar=[31,29,31,30,31,30,31,31,30,31,30,31]
+    calendar=[31,29,31,30,31,30,31,31,30,31,30,31]
     for i in range(0,a-1):
-        day+=callendar[i]
+        day+=calendar[i]
     day+=b
 
     day%=7
