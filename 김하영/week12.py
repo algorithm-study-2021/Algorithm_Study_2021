@@ -49,3 +49,99 @@ def checkorder(s):
 
 ### 3 후보키
 ## 릴레이션에서 후보 키의 개수
+import itertools
+
+def solution(relation):
+    combi = [] #항목 모든 조합
+    include = False
+    for i in range(1, len(relation[0])+1):
+        combi = combi + list(itertools.combinations(range(0,len(relation[0])),i))
+
+    keys = [] # 후보키 리스트
+    for i in range(len(combi)):
+        if len(keys) != 0:
+            for k in keys: #최소성 점검
+                include = True
+                for n in range(len(k)):
+                    if k[n] not in combi[i]:
+                        include = False
+                        break
+                if include == True:
+                    break
+        if include == True: #최소성 만족하지 않는 경우
+            continue #다음 combi[i]로
+        iskey = True
+        temp = []
+        for row in range(len(relation)):
+            student = [] #항목 뽑아낸 한줄 리스트
+            for c in combi[i]:
+                student.append(relation[row][c])
+            if student not in temp: 
+                temp.append(student)
+            else: #중복되는 값 있는 경우
+                iskey = False
+                break
+        if iskey == True:
+            keys.append(combi[i])
+
+    answer = len(keys)
+
+    return answer
+
+## 효율성 실패
+### 4 순위 검색
+## 각 문의조건에 해당하는 사람들의 숫자를 순서대로 배열에 담아 return
+def solution(info, query):
+    answer = [0 for i in range(len(query))]
+    infos = [] # info 문장을 리스트로 나눠서
+    for i in range(len(info)):
+        infos.append(info[i].split())
+    
+    for i in range(len(query)):
+        #query를 배열로
+        querylist = query[i].split()
+        for q in range(len(querylist)-1,-1,-1): #and 빼기
+            if querylist[q] == 'and':
+                del querylist[q]
+        
+        for j in range(len(infos)): #info 하나씩 비교
+            check = True
+            for num in range(4):
+                if querylist[num] == '-':
+                    continue
+                if querylist[num] != infos[j][num]:
+                    check = False
+                    break
+            if check == True:
+                if int(infos[j][4]) >= int(querylist[4]): #점수 조건
+                    answer[i] += 1
+            
+    return answer
+
+### 5 예상 대진표
+## 몇 번째 라운드에서 만나는지
+## 입출력 예  8,4,7 -> 3
+def solution(n,a,b):
+    answer = 0
+    s = 1 #범위의 시작값
+    while True:
+        if location(s, n, a) != location(s, n, b):
+            break
+        elif location(s,n,a) == 'before': #절반씩 범위를 좁혀가는 과정
+            n = n - (n-s+1)//2 #범위의 마지막 값
+        else:
+            s = s + (n-s+1)//2
+    
+    x = n-s+1 
+    while x!=1: #2의 몇승인지
+        x = x//2
+        answer += 1
+    return answer
+
+def location(s, n, x): #중간값 전후 판별
+    mid = (s+n-1)//2
+    if x > mid:
+        answer = 'after'
+    else:
+        answer = 'before'
+    return answer
